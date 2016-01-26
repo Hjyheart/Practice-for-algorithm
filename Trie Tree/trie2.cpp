@@ -45,7 +45,7 @@ void query(char *s)
 	}
 	printf("%d\n", T[p].cnt);
 }
-/*
+
 int main()
 {
 	int n, m;
@@ -67,4 +67,4 @@ int main()
 		}
 	}
 }
-*/
+
