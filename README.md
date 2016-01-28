@@ -7,7 +7,7 @@ Practice for algorithm
 
 ## 快速幂
 一种二分思想
-''''c++
+
 int quickMPow(int a, int b){
     if (b == 0) {
         return 1;
@@ -23,5 +23,4 @@ int quickMPow(int a, int b){
     }
     return reslut;
 }
-''''
 
