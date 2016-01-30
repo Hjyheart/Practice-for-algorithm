@@ -99,6 +99,6 @@ void solve(){
 }
 
 ````
-[foo]:http://acm.hdu.edu.cn/showproblem.php?pid=1002 'Hdu 1002'
+来自[Hdu 1002](http://acm.hdu.edu.cn/showproblem.php?pid=1002)
 
 
