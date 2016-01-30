@@ -3,7 +3,7 @@ Practice for algorithm
 
 ## Trie Tree
 一种用于字典搜索的树，代码中用数组实现
-对应题目为http://hihocoder.com/problemset/problem/1014
+对应题目为[字典树](http://hihocoder.com/problemset/problem/1014)
 
 ## 快速幂
 一种二分思想
@@ -101,4 +101,32 @@ void solve(){
 ````
 来自[Hdu 1002](http://acm.hdu.edu.cn/showproblem.php?pid=1002)
 
-
+## 最大子串和
+Given a sequence a[1],a[2],a[3]......a[n], your job is to calculate the max sum of a sub-sequence. For example, given (6,-1,5,4,-7), the max sum in this sequence is 6 + (-1) + 5 + 4 = 14.
+````c++
+for (int i = 0; i < T; i++) {
+        int count, start = 1, end = 1, max = -1<<31, dp = 0, temp = 1;
+        cin >> count;
+       
+        for (int k = 0; k < count; k++) {
+            int num;
+            cin >> num;
+            dp += num;
+            if(dp > max) {
+                max = dp;
+                start = temp;
+                end = k + 1;
+            }
+            if(dp < 0){
+                dp = 0;
+                temp = k + 2;
+            }
+        }
+        cout << "Case " << i + 1 << ":" << endl;
+        cout << max << " " << start << " " << end << endl;
+        if (i != T - 1) {
+            cout << endl;
+        }
+    }
+````
+来自[Hdu 1003](http://acm.hdu.edu.cn/showproblem.php?pid=1003)
