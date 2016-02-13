@@ -130,3 +130,34 @@ for (int i = 0; i < T; i++) {
     }
 ````
 来自[Hdu 1003](http://acm.hdu.edu.cn/showproblem.php?pid=1003)
+
+##动态规划之数塔
+数塔是一种典型的动态规划问题。可以想象成是从杨辉三角这样的结构上的顶点开始向下走，可左可右。到底时要求达到最大值。利用动态规划，自底向上计算，就可以得到一个最优解。
+````c++
+int H1176_Solve(){
+    for (int i = maxTime - 1; i >= 0; i--) {
+        for (int k = 0; k < 11; k++) {
+            int maxValue = arr[k][i + 1];
+            if (k - 1 >= 0) {
+                if (arr[k - 1][i + 1] > maxValue) {
+                    maxValue = arr[k - 1][i + 1];
+                }
+            }
+            if(k + 1 <= 10){
+                if (arr[k + 1][i + 1] > maxValue) {
+                    maxValue = arr[k + 1][i + 1];
+                }
+            }
+            arr[k][i] = arr[k][i] + maxValue;
+        }
+    }
+    int max = arr[4][1];
+    for (int i = 4; i < 7; i++) {
+        if(arr[i][1] > max){
+            max = arr[i][1];
+        }
+    }
+    return max;
+}
+````
+来自［Hdu 1176](http://acm.hdu.edu.cn/showproblem.php?pid=1176)
