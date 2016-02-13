@@ -160,4 +160,4 @@ int H1176_Solve(){
     return max;
 }
 ````
-来自［Hdu 1176](http://acm.hdu.edu.cn/showproblem.php?pid=1176)
+来自[Hdu 1176](http://acm.hdu.edu.cn/showproblem.php?pid=1176)
