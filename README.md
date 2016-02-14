@@ -161,3 +161,15 @@ int H1176_Solve(){
 }
 ````
 来自[Hdu 1176](http://acm.hdu.edu.cn/showproblem.php?pid=1176)
+
+##背包问题
+###01背包
+01背包是最基础的一类背包：有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。
+状态方程为：f[i][v]=max{f[i-1][v],f[i-1][v-c[i]]+w[i]}
+
+基本的解法为对于背包容量的逆推：
+for i=1..N
+    for v=V..0
+        f[v]=max{f[v],f[v-c[i]]+w[i]};
+
+来自[Hdu1203](http://acm.hdu.edu.cn/showproblem.php?pid=1203)&&[Hdu2602](http://acm.hdu.edu.cn/showproblem.php?pid=2602)
