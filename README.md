@@ -162,6 +162,43 @@ int H1176_Solve(){
 ````
 来自[Hdu 1176](http://acm.hdu.edu.cn/showproblem.php?pid=1176)
 
+##BFS
+广度优先搜索因为可以一层一层地搜索图，所以可以作为一种求最短路径的方式，当然啦，是那种权值都相等的图。一般会有一个数组去标记是否访问来防止反复访问，但是有的题目会有重复走的情况，则视情况而定。基本上是有一个统一的模板的。需要用到队列，有的时候题目会有用到优先队列的需求。
+````c++
+void solve(){
+    queue<Node> s;
+    memset(flag, 0, sizeof(flag));
+    now.x = inx;
+    now.y = iny;
+    now.time = 6;
+    now.output = 0;
+    flag[inx][iny] = 6;
+    s.push(now);
+    
+    while (!s.empty()) {
+        now = s.front();
+        s.pop();
+        for (int i = 0; i < 4; i++) {
+            nex = now;
+            nex.x = now.x + fx[i];
+            nex.y = now.y + fy[i];
+            if(nex.x >= 0 && nex.x < N && nex.y >= 0 && nex.y < M && flag[nex.x][nex.y] < now.time - 1){
+                if (mp[nex.x][nex.y] == 0) {
+                }
+                if(mp[nex.x][nex.y] == 3){
+                }
+                if (mp[nex.x][nex.y] == 1) {
+                }
+                if (mp[nex.x][nex.y] == 4) {
+                }
+            }
+        }
+    }
+    printf("-1\n");
+}
+````
+来自[Hdu 1072](http://acm.hdu.edu.cn/showproblem.php?pid=1072)
+
 ##背包问题
 ###01背包
 01背包是最基础的一类背包：有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。
