@@ -221,6 +221,7 @@ for i=1..N
 方法是：将第i种物品分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。使这些系数分别为1,2,4,...,2^(k-1),n[i]-2^k+1，且k是满足n[i]-2^k+1>0的最大整数。例如，如果n[i]为13，就将这种物品分成系数分别为1,2,4,6的四件物品。
 解法为：
 procedure MultiplePack(cost,weight,amount)
+
     if cost*amount>=V
         CompletePack(cost,weight)
         return
