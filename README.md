@@ -206,7 +206,32 @@ void solve(){
 
 基本的解法为对于背包容量的逆推：
 for i=1..N
-    for v=V..0
+    for v=V..cost
         f[v]=max{f[v],f[v-c[i]]+w[i]};
 
-来自[Hdu1203](http://acm.hdu.edu.cn/showproblem.php?pid=1203)&&[Hdu2602](http://acm.hdu.edu.cn/showproblem.php?pid=2602)
+题目可参考[Hdu1203](http://acm.hdu.edu.cn/showproblem.php?pid=1203)&&[Hdu2602](http://acm.hdu.edu.cn/showproblem.php?pid=2602)
+###完全背包
+完全背包是每件物品可以放置无数次的一类背包，因为可以无数次放置，所以在递推的时候我们将不再需要逆推，所以它的解法是：
+for i=1..N
+    for v=cost..V
+        f[v]=max{f[v],f[v-c[i]]+w[i]};
+就只是和01背包有那么一丢丢的差
+###多重背包
+多重背包相对复杂，怎么说呢，就是物品有了数量的限制。当数量足够多时，我们采用的还是完全背包的方法，当数量不够多的时候我们将数量拆分，再简化为01背包去求解。
+方法是：将第i种物品分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。使这些系数分别为1,2,4,...,2^(k-1),n[i]-2^k+1，且k是满足n[i]-2^k+1>0的最大整数。例如，如果n[i]为13，就将这种物品分成系数分别为1,2,4,6的四件物品。
+解法为：
+procedure MultiplePack(cost,weight,amount)
+    if cost*amount>=V
+        CompletePack(cost,weight)
+        return
+    integer k=1
+    while k<amount
+        ZeroOnePack(k*cost,k*weight)
+        amount=amount-k
+        k=k*2
+    ZeroOnePack(amount*cost,amount*weight)
+
+完全背包和多重背包的题目参考[Hdu 2159](http://acm.hdu.edu.cn/showproblem.php?pid=2159) 
+                            [Hdu 2191](http://acm.hdu.edu.cn/showproblem.php?pid=2191)
+                            [Hdu 1171](http://acm.hdu.edu.cn/showproblem.php?pid=1171)
+
