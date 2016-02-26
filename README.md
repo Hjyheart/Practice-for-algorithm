@@ -199,6 +199,29 @@ void solve(){
 ````
 来自[Hdu 1072](http://acm.hdu.edu.cn/showproblem.php?pid=1072)
 
+##DFS
+DFS是和BFS方法截然不同的图的遍历方法，在一条路线上走到底再回溯而不是一层层地搜索。往往用于寻找可行路线或是对图进行探索。是否需要加地图标记看题目需求。在一条路线检索完毕之后往往需要一步步将标记取消，这样别的路线可以再次走在地图上的该点。数据结构第三题迷宫我就是用DFS写的。代码类似如下：
+````c++
+int fx[4] = {0, 0, 1, -1};
+int fy[4] = {1, -1, 0, 0};
+
+void solve(int x, int y){
+    if((mp[x][y] == '.' || mp[x][y] == '@') && vis[x][y] == 0){
+        num++;
+        vis[x][y] = 1;
+        for (int i = 0; i < 4; i++) {
+            int nexX = x, nexY = y;
+            nexX += fx[i];
+            nexY += fy[i];
+            if (nexX >=0 && nexX < N && nexY >= 0 && nexY < M) {
+                solve(nexX, nexY);
+            }
+        }
+    }
+}
+````
+来自[Hdu 1312](http://acm.hdu.edu.cn/showproblem.php?pid=1312)
+
 ##背包问题
 ###01背包
 01背包是最基础的一类背包：有N件物品和一个容量为V的背包。第i件物品的费用是c[i]，价值是w[i]。求解将哪些物品装入背包可使价值总和最大。
