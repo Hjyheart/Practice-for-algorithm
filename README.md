@@ -5,6 +5,39 @@ Practice for algorithm
 一种用于字典搜索的树，代码中用数组实现
 对应题目为[字典树](http://hihocoder.com/problemset/problem/1014)
 
+## KMP
+KMP算法是一种字符串模式匹配算法，借助一个NEXT数组进行字符串的高速匹配。以下是KMP算法模板：
+````c++
+void setNext(){
+    NEXT[0] = -1;
+    int j = 0, k = -1;
+    while (j < par.length()) {
+        if (k == -1 || par[k] == par[j]) {
+            j++;
+            k++;
+            NEXT[j] = k;
+        }
+        else
+            k = NEXT[k];
+    }
+}
+void solve(){
+    int p = 0, q = 0;
+    while (p < ori.length()) {
+        if (q == -1 || par[q] == ori[p]) {
+            q++;
+            p++;
+        }
+        else
+            q = NEXT[q];
+        if (q == par.length()) {
+            ans++;
+        }
+    }
+}
+````
+来自[Hdu 1711](http://acm.hdu.edu.cn/showproblem.php?pid=1711)
+
 ## 快速幂
 一种二分思想
 ````c++
