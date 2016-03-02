@@ -36,6 +36,10 @@ void solve(){
     }
 }
 ````
+来自[Hdu 1027](http://acm.hdu.edu.cn/showproblem.php?pid=1027)
+
+## 字典序
+字典序的输出方法在STL是有现成的，next_permutation(a, a + 4)就可以获得size为4的数组的下一个全排列。非递归算法则是从最后一位开始，寻找第一个a[i - 1] < a[i]的位置，记录i － 1，从i开始往后找到最后一个大于a[i - 1]的数字，记录它的位置k，交换a[i - 1]和a[k],然后倒置i位置之后的所有数就得到了下一个全排列。
 来自[Hdu 1711](http://acm.hdu.edu.cn/showproblem.php?pid=1711)
 
 ## 快速幂
