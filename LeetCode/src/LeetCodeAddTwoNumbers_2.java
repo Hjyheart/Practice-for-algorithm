@@ -1,4 +1,4 @@
-package LeetCode;
+package src;
 
 /**
  * Created by hongjiayong on 2017/4/9.
