@@ -40,77 +40,23 @@ public class WiggleSort_324 {
         if (nums.length <= 1) {
             return;
         }
-        int[] res = new int[nums.length];
-        int medium = findKth(nums, 0, nums.length - 1, (nums.length - 1) / 2);
-        int mediumCount = -1;
-        int indexOdd = 0;
-        int indexEven = 1;
-        res[0] = medium;
-        if (nums.length % 2 == 0) {
-            mediumCount--;
-            res[nums.length - 1] = medium;
-        }
+        int n = nums.length;
+        int medium = findKth(nums, 0, n - 1, (n - 1) / 2);
+        int left = 0, right = n - 1, i = 0;
 
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] < medium) {
-                res[indexEven * 2] = nums[i];
-                indexEven++;
-            } else if (nums[i] > medium) {
-                res[indexOdd * 2 + 1] = nums[i];
-                indexOdd++;
+        while (i <= right) {
+            if (nums[newIndex(i, n)] > medium) {
+                swap(nums, newIndex(left++, n), newIndex(i++, n));
+            } else if (nums[newIndex(i, n)] < medium) {
+               swap(nums, newIndex(right--, n), newIndex(i, n));
             } else {
-                if (mediumCount < 0) {
-                    mediumCount++;
-                } else {
-                    mediumCount++;
-                    int temp = res[mediumCount * 2];
-                    res[mediumCount * 2] = medium;
-                    res[indexEven * 2] = temp;
-                    indexEven++;
-                }
+                i++;
             }
         }
-        nums = res;
     }
 
     public static int newIndex(int index, int n) {
-        return (1 + 2*index) % (n | 1);
-    }
-
-    public static boolean vertify(int [] nums) {
-        if (nums.length == 1) {
-            return true;
-        }
-        for (int i = 0; i < nums.length; i++) {
-           if (i % 2 == 0) {
-               if (i == 0 && nums[i] > nums[i + 1]) {
-                   return false;
-               }
-               if (i == 0) {
-                   continue;
-               }
-               if (i == nums.length - 1 && nums[i] > nums[i - 1]) {
-                   return false;
-               }
-               if (i == nums.length - 1) {
-                   continue;
-               }
-               if (nums[i] > nums[i - 1] || nums[i] > nums[i + 1]) {
-                   return false;
-               }
-           } else {
-               if (i == nums.length - 1 && nums[i] < nums[i - 1]) {
-                   return false;
-               }
-               if (i == nums.length - 1) {
-                   continue;
-               }
-               if (nums[i] < nums[i - 1] || nums[i] < nums[i + 1]) {
-                   return false;
-               }
-           }
-        }
-        return true;
+        return (1 + 2 * index) % (n | 1);
     }
 
     public static void main(String[] args) {
