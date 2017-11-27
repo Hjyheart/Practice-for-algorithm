@@ -18,12 +18,10 @@ public class ExclusiveTimeOfFunctions_636 {
         int startTime;
         int timeStamp;
         boolean run;
-        public command(int id, int startTime) {
-            this.count = 1;
-            this.timeStamp = startTime;
+        public command(int id) {
+            this.count = 0;
             this.run = true;
             this.id = id;
-            this.startTime = startTime;
         }
     }
 
@@ -42,6 +40,9 @@ public class ExclusiveTimeOfFunctions_636 {
         Pattern r = Pattern.compile("^([0-9]*):(\\D+):([0-9]*$)");
         Stack<command> commands = new Stack<>();
         List<command> commandList = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            commandList.add(new command(i));
+        }
         int[] res = new int[n];
 
         for (String str : logs) {
@@ -54,28 +55,34 @@ public class ExclusiveTimeOfFunctions_636 {
                 time = Integer.valueOf(m.group(3));
             }
             if (commands.empty()) {
-                commands.push(new command(id, time));
+                command tmp = new command(id);
+                tmp.startTime = time;
+                tmp.timeStamp = time;
+                commands.push(tmp);
                 continue;
             }
 
             switch (flag){
                 case "start":
                     if (commands.peek().run) {
-                        commands.peek().count += time - commands.peek().timeStamp - 1;
+                        commands.peek().count += time - commands.peek().timeStamp;
                         commands.peek().timeStamp = time;
                         commands.peek().run = false;
                     }
-                    commands.push(new command(id, time));
+                    command tmp0 = new command(id);
+                    tmp0.startTime = time;
+                    tmp0.timeStamp = time;
+                    commands.push(tmp0);
                     break;
                 case "end":
                     command tmp = commands.pop();
                     if (tmp.run) {
-                        tmp.count += time - tmp.timeStamp;
+                        tmp.count += time - tmp.timeStamp + 1;
                     }
-                    commandList.add(tmp);
+                    commandList.get(tmp.id).count += tmp.count;
                     if (!commands.empty()) {
                         commands.peek().run = true;
-                        commands.peek().timeStamp = time;
+                        commands.peek().timeStamp = time + 1;
                     }
                     break;
             }
@@ -95,6 +102,8 @@ public class ExclusiveTimeOfFunctions_636 {
         list.add("1:start:2");
         list.add("1:end:5");
         list.add("0:end:6");
+//        list.add("0:end:6");
+//        list.add("0:end:7");
 //                ["0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"]
         exclusiveTime(2, list);
     }
