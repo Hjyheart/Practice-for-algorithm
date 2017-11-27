@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 /**
  * Created by I332329 on 11/21/2017.
+ * Solution:
+ * 这道题很有趣。算出中位数，然后把所有小于中位数的挨个放在奇数位，大于中位数的放在偶数位。
+ * 中位数不动位置就行了
+ * Tag: Sort
  */
 public class WiggleSort_324 {
 

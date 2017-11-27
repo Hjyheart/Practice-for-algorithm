@@ -5,6 +5,11 @@ import java.util.List;
 
 /**
  * Created by I332329 on 11/27/2017.
+ * Solution:
+ * 新开一个数组，然后判断start的大小来决定先推入intervals还是newInterval
+ * 然后每次要推的时候判断res数组最后一个元素end和当前item的start的大小，如果start大，
+ * 就新推入一个节点，不然就修改最后一个元素的end，值为item的end和end原本值的最大值。
+ * Tag: Sort
  */
 public class InsertInterval_57 {
     public static class Interval {

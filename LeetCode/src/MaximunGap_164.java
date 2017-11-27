@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 /**
  * Created by I332329 on 11/24/2017.
+ * Solution:
+ * 先遍历一遍得到最大值和最小值，然后得到平均gap=(max - min)/(n - 1)
+ * 然后分桶，一个gap的在一个桶里，这样的话最大距离一定是相邻桶的间距，注意要跳过没有用的桶
+ * 桶内维护一个最大值和最小值就行了
+ * Tag: Sort
  */
 public class MaximunGap_164 {
     public static class bucket{
