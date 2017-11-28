@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by I332329 on 11/27/2017.
+ * Tag: Stack
  */
 public class ExclusiveTimeOfFunctions_636 {
 
@@ -37,23 +36,34 @@ public class ExclusiveTimeOfFunctions_636 {
     }
 
     public static int[] exclusiveTime(int n, List<String> logs) {
-        Pattern r = Pattern.compile("^([0-9]*):(\\D+):([0-9]*$)");
         Stack<command> commands = new Stack<>();
-        List<command> commandList = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            commandList.add(new command(i));
-        }
         int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            res[i] = 0;
+        }
 
         for (String str : logs) {
-            Matcher m = r.matcher(str);
             int id = 0, time = 0;
             String flag = "";
-            while(m.find()) {
-                id = Integer.valueOf(m.group(1));
-                flag = m.group(2);
-                time = Integer.valueOf(m.group(3));
+            int i = 0;
+            while (i < str.length()) {
+                if (str.charAt(i) == ':') {
+                    id = Integer.valueOf(str.substring(0, i));
+                    i++;
+                    break;
+                }
+                i++;
             }
+            int k = i;
+            while (k < str.length()) {
+                if (str.charAt(k) == ':') {
+                    flag = str.substring(i, k);
+                    k++;
+                    break;
+                }
+                k++;
+            }
+            time = Integer.valueOf(str.substring(k));
             if (commands.empty()) {
                 command tmp = new command(id);
                 tmp.startTime = time;
@@ -79,19 +89,13 @@ public class ExclusiveTimeOfFunctions_636 {
                     if (tmp.run) {
                         tmp.count += time - tmp.timeStamp + 1;
                     }
-                    commandList.get(tmp.id).count += tmp.count;
+                    res[tmp.id] += tmp.count;
                     if (!commands.empty()) {
                         commands.peek().run = true;
                         commands.peek().timeStamp = time + 1;
                     }
                     break;
             }
-        }
-
-        commandList.sort(new compare());
-
-        for (int i = 0; i < commandList.size(); i++) {
-            res[i] = commandList.get(i).count;
         }
         return res;
     }
