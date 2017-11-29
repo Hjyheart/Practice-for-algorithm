@@ -4,7 +4,7 @@ package src;
  * Created by hongjiayong on 2017/4/9.
  * For LeetCode @2 Add Two Numbers
  */
-public class LeetCodeAddTwoNumbers_2 {
+public class AddTwoNumbers_2 {
 
     public static class ListNode{
         int val;

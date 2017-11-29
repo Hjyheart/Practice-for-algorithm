@@ -3,7 +3,7 @@ package src;
 /**
  * Created by hongjiayong on 2017/4/13.
  */
-public class LeetCodeReverseInteger_7 {
+public class ReverseInteger_7 {
     public int reverse(int x) {
         int result = 0;
 

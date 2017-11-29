@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Created by hongjiayong on 2017/11/20.
  */
-public class LeetCodeLongestWordInDictionary_720 {
+public class LongestWordInDictionary_720 {
 
     static class wordComparator implements Comparator {
 

@@ -6,7 +6,7 @@ package src;
  * Description:
  * Given a string, find the length of the longest substring without repeating characters.
  */
-public class LeetCodeLongestSubstringWithoutRepeatingCharacters_3 {
+public class LongestSubstringWithoutRepeatingCharacters_3 {
 
     public static int lengthOfLongestSubstring(String s){
 
@@ -34,7 +34,7 @@ public class LeetCodeLongestSubstringWithoutRepeatingCharacters_3 {
     }
 
     public static void main(String [] args){
-        int res = lengthOfLongestSubstring("au");
+        int res = lengthOfLongestSubstring("pwwkew");
         System.out.println(res);
     }
 }

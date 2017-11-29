@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by hongjiayong on 2017/4/12.
  * Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
  */
-public class LeetCodeLongestPalindromicSubstring_4 {
+public class LongestPalindromicSubstring_4 {
 
     public static String longestPalindrome_Manacher(String s) {
         if (s.length() < 2){
