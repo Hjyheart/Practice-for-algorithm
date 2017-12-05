@@ -1,123 +1,54 @@
 package src;
 
+import java.util.Arrays;
+
 /**
  * Created by hongjiayong on 2017/12/5.
  */
 public class CherryPick_741 {
 
     public static int cherryPickup(int[][] grid) {
-        int n = grid.length;
-        if (n == 0) {
-            return 0;
+        int m = grid.length;
+        int[][] res = new int[m][m];
+        for (int[] arr : res) {
+            Arrays.fill(arr, - 1);
         }
-        int m = grid[0].length;
-        int[][] dp = new int[n][m];
-        int[][] location = new int[n][m];
+        res[0][0] = 0;
 
-        for (int i = 0; i < location.length; i++) {
-            for (int k = 0; k <location[0].length; k++) {
-                location[i][k] = -1;
+        for (int i = 0; i < m; i++) {
+            int [][] line = new int[m][m];
+            for (int[] arr : line) {
+                Arrays.fill(arr, -1);
             }
-        }
-
-        dp[0][0] = grid[0][0];
-
-        for (int i = 0; i < n; i++) {
-            for (int k = 0; k < m; k++) {
-                if (grid[i][k] == -1) {
-                    continue;
-                }
-                if (i > 0) {
-                    if (k > 0) {
-                        if (grid[i - 1][k] == -1 && grid[i][k - 1] == -1) {
-                            continue;
-                        } else if(grid[i - 1][k] == -1) {
-                            dp[i][k] = dp[i][k - 1] + grid[i][k];
-                            location[i][k] = 1;
-                        } else if(grid[i][k - 1] == -1) {
-                            dp[i][k] = dp[i - 1][k] + grid[i][k];
-                            location[i][k] = 2;
-                        } else {
-                            dp[i][k] = Math.max(dp[i - 1][k], dp[i][k - 1]) + grid[i][k];
-                            location[i][k] = dp[i - 1][k] > dp[i][k - 1] ? 2 : 1;
+            for (int left = 0; left < m; left++) {
+                for (int right = left; right < m; right++) {
+                    int leftCount = res[left][right];
+                    if (res[left][right] > - 1) {
+                        for (int j = left; j < m && grid[i][j] > -1; j++) {
+                            leftCount += grid[i][j];
+                            if (j >= right) {
+                                line[j][j] = Math.max(line[j][j], leftCount);
+                            }
+                            int rightCount = leftCount;
+                            for (int k = Math.max(j + 1, right); k < m && grid[i][k] > -1; k++) {
+                                rightCount += grid[i][k];
+                                line[j][k] = Math.max(line[j][k], rightCount);
+                            }
                         }
-                    } else {
-                        if(grid[i - 1][k] == -1) {
-                            continue;
-                        }
-                        dp[i][k] = dp[i - 1][k] + grid[i][k];
-                        location[i][k] = 2;
-                    }
-                } else {
-                    if (k > 0) {
-                        if(grid[i][k - 1] == -1) {
-                            continue;
-                        }
-                        dp[i][k] = dp[i][k - 1] + grid[i][k];
-                        location[i][k] = 1;
                     }
                 }
             }
+            res = line;
         }
 
-        int res1 = dp[n - 1][m - 1];
-
-        int flag = location[n - 1][m - 1], xId = n - 1, yId = m - 1;
-        while (flag != -1) {
-            grid[xId][yId] = 0;
-            if (flag == 2) {
-                xId--;
-            } else {
-                yId--;
-            }
-            flag = location[xId][yId];
-        }
-
-        if (xId != 0 || yId != 0) {
-            return 0;
-        }
-        grid[0][0] = 0;
-        dp =new int[n][m];
-
-        for (int i = n - 1; i >= 0; i--) {
-            for (int k = m - 1; k >= 0; k--) {
-                if (grid[i][k] == -1) {
-                    continue;
-                }
-                if (i < n - 1) {
-                    if (k < m - 1) {
-                        if (grid[i + 1][k] == -1 && grid[i][k + 1] == -1) {
-                            continue;
-                        } else if(grid[i + 1][k] == -1) {
-                            dp[i][k] = dp[i][k + 1] + grid[i][k];
-                        } else if(grid[i][k + 1] == -1) {
-                            dp[i][k] = dp[i + 1][k] + grid[i][k];
-                        } else {
-                            dp[i][k] = Math.max(dp[i + 1][k], dp[i][k + 1]) + grid[i][k];
-                        }
-                    } else {
-                        if(grid[i + 1][k] == -1) {
-                            continue;
-                        }
-                        dp[i][k] = dp[i + 1][k] + grid[i][k];
-                    }
-                } else {
-                    if (k < m - 1) {
-                        if(grid[i][k + 1] == -1) {
-                            continue;
-                        }
-                        dp[i][k] = dp[i][k + 1] + grid[i][k];
-                    }
-                }
-            }
-        }
-
-        return res1 + dp[0][0];
+        return Math.max(res[m - 1][m - 1], 0);
     }
 
 
     public static void main(String[] args) {
-        System.out.println(cherryPickup(new int[][]{{1,1,1,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,1},{1,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,1,1,1}}));
+//        System.out.println(cherryPickup(new int[][]{{1,1,1,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,1},{1,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,1,1,1}}));
+        System.out.println(cherryPickup(new int[][]{{0,1,-1},{1,0,-1},{1,1,1}}));
+
     }
 
 }
