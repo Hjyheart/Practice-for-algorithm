@@ -13,7 +13,7 @@ public class OneAndZeros_474 {
     public static int findMaxForm(String[] strs, int m, int n) {
 
         ArrayList<int[]> pre = new ArrayList<>();
-        int[][][] dp = new int[strs.length + 1][m + 1][n + 1];
+        int[][] dp = new int[m + 1][n + 1];
 
         for (int i = 0; i < strs.length; i++) {
             int zero = 0, one = 0;
@@ -31,15 +31,15 @@ public class OneAndZeros_474 {
             for (int j = m; j >= 0; j--) {
                 for (int k = n; k >= 0; k--) {
                     if (pre.get(i - 1)[0] <= j && pre.get(i - 1)[1] <= k) {
-                        dp[i][j][k] = Math.max(dp[i - 1][j - pre.get(i - 1)[0]][k - pre.get(i - 1)[1]] + 1, dp[i - 1][j][k]);
+                        dp[j][k] = Math.max(dp[j - pre.get(i - 1)[0]][k - pre.get(i - 1)[1]] + 1, dp[j][k]);
                     } else {
-                        dp[i][j][k] = dp[i -  1][j][k];
+                        dp[j][k] = dp[j][k];
                     }
                 }
             }
         }
 
-        return dp[strs.length][m][n];
+        return dp[m][n];
     }
 
     public static void main(String[] args) {
