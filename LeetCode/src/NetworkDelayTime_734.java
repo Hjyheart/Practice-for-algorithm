@@ -4,6 +4,9 @@ import java.util.*;
 
 /**
  * Created by hongjiayong on 2017/12/10.
+ * Tag: Heap
+ * Solution:
+ * 这个题一开始就知道是bfs 但是没用上优先队列就一直超时 每次都弹出最短时间的就可以了
  */
 public class NetworkDelayTime_734 {
 
@@ -18,19 +21,22 @@ public class NetworkDelayTime_734 {
         }
     }
 
-//    static class Order{
-//        int k;
-//        int w;
-//        public Order(int k, int w) {
-//            this.k = k;
-//            this.w = w;
-//        }
-//    }
+    static class compare implements Comparator {
+
+        @Override
+        public int compare(Object o1, Object o2) {
+            Point p1 = (Point) o1;
+            Point p2 = (Point) o2;
+            return p1.w + p1.startTime - p2.w - p2.startTime;
+        }
+    }
+
 
     public static int networkDelayTime(int[][] times, int N, int K) {
 
         ArrayList<int[]> disMap = new ArrayList<>();
         int[] bfsMap = new int[N];
+        int count = 0;
 
         for (int i = 0; i < N; i++) {
             bfsMap[i] = -1;
@@ -44,19 +50,21 @@ public class NetworkDelayTime_734 {
             disMap.get(times[i][0] - 1)[times[i][1] - 1] = times[i][2];
         }
 
-        Queue<Point> queue = new LinkedList<>();
+        PriorityQueue<Point> queue = new PriorityQueue<>(new compare());
 
         queue.add(new Point(K - 1, 0, 0));
 
         while (!queue.isEmpty()) {
             Point current = queue.poll();
             if (bfsMap[current.k] != -1) {
-                if (current.startTime + current.w > bfsMap[current.k]) {
-                    continue;
-                }
+                continue;
             }
 
             bfsMap[current.k] = current.startTime + current.w;
+            count++;
+            if (count == N) {
+                return bfsMap[current.k];
+            }
 
             int[] tmp = disMap.get(current.k);
 
@@ -68,18 +76,7 @@ public class NetworkDelayTime_734 {
 
         }
 
-
-        int res = -1;
-        for (int i = 0; i < bfsMap.length; i++) {
-            if (bfsMap[i] == -1) {
-                return -1;
-            }
-            if (bfsMap[i] > res) {
-                res = bfsMap[i];
-            }
-        }
-
-        return res;
+        return -1;
     }
 
     public static void main(String[] args) {
