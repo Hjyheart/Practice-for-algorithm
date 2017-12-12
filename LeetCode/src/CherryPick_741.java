@@ -1,6 +1,8 @@
 package src;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by hongjiayong on 2017/12/5.
@@ -48,7 +50,6 @@ public class CherryPick_741 {
     public static void main(String[] args) {
 //        System.out.println(cherryPickup(new int[][]{{1,1,1,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,1},{1,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,0,0,0},{0,0,0,1,1,1,1}}));
         System.out.println(cherryPickup(new int[][]{{0,1,-1},{1,0,-1},{1,1,1}}));
-
     }
 
 }
