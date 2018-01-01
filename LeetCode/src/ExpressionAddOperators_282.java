@@ -25,6 +25,10 @@ public class ExpressionAddOperators_282 {
                 continue;
             }
             if (!tmp.toString().equals("")){
+//                System.out.println(tmp.toString());
+                if (tmp.charAt(0) == '0' && tmp.length() > 1) {
+                    return  -1;
+                }
                 nums.push(Integer.parseInt(tmp.toString()));
                 tmp = new StringBuilder("");
             }
@@ -38,7 +42,7 @@ public class ExpressionAddOperators_282 {
             }
             char op = operations.peek();
             if ((str.charAt(n) == '+' || str.charAt(n) == '-') && op == '*') {
-                while (operations.peek() == '*') {
+                while (!operations.isEmpty() && operations.peek() == '*') {
                     operations.pop();
                     int one = nums.pop();
                     int two = nums.pop();
@@ -70,24 +74,43 @@ public class ExpressionAddOperators_282 {
         return nums.peek();
     }
 
-//    public static String dfs(String str, int pos, String cur, int target, ArrayList<String> res) {
-//        char[] operations = new char[]{'+', '-', '*', ' '};
-//    }
+    public static void dfs(String str, int pos, String cur, int target, ArrayList<String> res) {
+        String[] operations = new String[]{"+", "-", "*", ""};
+
+        if (pos >= str.length()) {
+            return;
+        }
+
+        cur += str.charAt(pos);
+        if (calc(cur) == target) {
+            res.add(cur);
+        }
+
+        for (String c : operations) {
+            if (!c.equals("")) {
+                dfs(str, pos + 1, cur + c, target, res);
+            } else {
+                dfs(str, pos + 1, cur, target, res);
+
+            }
+        }
+
+    }
 
 
     public  static List<String> addOperators(String num, int target) {
         ArrayList<String> res = new ArrayList<>();
 
-
-
+        dfs(num, 0, "", target, res);
 
         return res;
     }
 
 
     public static void main(String[] args) {
-        System.out.println(addOperators("123", 6));
-        System.out.println(calc("1+2*3-2"));
+        System.out.println(calc("1+2+3+4+5-6*7-8*9"));
+//        System.out.println(addOperators("123", 6));
+//        System.out.println(addOperators("3456237490", 9191));
     }
 
 }
